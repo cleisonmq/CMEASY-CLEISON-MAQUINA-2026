@@ -25,6 +25,10 @@ def entrada_invalida3 ():
     enter_clear ()
 #------------------------------------------------------------
 
+######################################################################################################################
+######################################################################################################################
+######################################################################################################################
+
 #-------------------------> CMEasy <-------------------------
 # Menu Principal
 def menu_principal ():
@@ -42,9 +46,11 @@ def menu_principal ():
     print("|  4.  | Encerrar o programa                             |")
     print("+--------------------------------------------------------+")
 #------------------------------------------------------------
-############################################################################
 
-###########################################################################
+######################################################################################################################
+######################################################################################################################
+######################################################################################################################
+
 #----------------> 1. Instalar Promagramas <-----------------
 
 # Menu Principal (Tipos de distribuicao)
@@ -54,7 +60,7 @@ def menu_instalar_programas ():
     print("+--------------------------------------------------------+")
     print("|                  DISTRIBUÇÃO LINUX                     |")
     print("+--------------------------------------------------------+")
-    print("|  1.  | Familia Debian (Ubunto, Kali Linux...)          |")
+    print("|  1.  | Familia Debian (Ubunto, Kali, Linux...)         |")
     print("+------+-------------------------------------------------+")
     #print("|      | Familia Red Hat (Rocky Linux, Cent OS...)      |")
     #print("+------+-------------------------------------------------+")
@@ -80,6 +86,349 @@ def menu_tipo_de_programa ():
     print("|                       @cmeasy                          |")
     print("+--------------------------------------------------------+")
 #-------------------------------------------------
+
+#------------------------> Outros programas
+# Comandos
+def outro_programas_comandos ():
+    print("+----------------------------------------------------+")
+    print("|                      COMANDOS                      |")
+    print("+----------------------------------------------------+")
+    print("| 1. Ativar                                          |")
+    print("| 2. Iniciar                                         |")
+    print("| 3. Estado                                          |")
+    print("| 4. Parar                                           |")
+    print("| 5. Reiniciar                                       |")
+    print("| 6. Versao                                          |")
+    print("| 7. Sair                                            |")
+    print("+------- --------------------------------------------+")
+    print("|                   - CMEasy -                       |")
+    print("+----------------------------------------------------+") 
+#---> 1. SSH
+# Menu Principal
+def menu_outros_programas ():
+    print("+--------------------------------------------------------------+")
+    print("|                      OUTROS PROGRAMAS                        |")
+    print("+--------------------------------------------------------------+")
+    print("|  1.  | SSH (Secure Shell)                                    |")
+    print("+------+-------------------------------------------------------+")
+    print("|  2.  | Apache                                                |")
+    print("+------+-------------------------------------------------------+")
+    print("|  3.  | Base de Dados                                         |")
+    print("+------+-------------------------------------------------------+")
+    #print("| 4. | Parar                                                   |")
+    #print("+----+---------------------------------------------------------+")
+    #print("| 5. | Reiniciar                                               |")
+    #print("+----+---------------------------------------------------------+")
+    #print("| 6. | Versão                                                  |")
+    #print("+----+---------------------------------------------------------+")
+    #print("| 7. | Ver IP'S Banidos                                        |")
+    #print("+----+---------------------------------------------------------+")
+    #print("| 8. | Liberar IP                                              |")
+    #print("+----+---------------------------------------------------------+")
+    #print("| 8. | Banir Host                                              |")
+    #print("+----+---------------------------------------------------------+")
+    print("|  4.  | Sair                                                  |")
+    print("+--------------------------------------------------------------+")
+    print("|                        - CMEasy -                            |")
+    print("+--------------------------------------------------------------+")
+#---> ssh
+def menu_ssh ():
+    print("+----------------------------------------------------+")
+    print("|                      S S H                         |")
+    print("+----------------------------------------------------+")
+    print("| SSH (Secure Shell) é um protocolo de rede utilizado|")
+    print("|para acessar de forma segura e remota computadores  |")
+    print("|ou servidores, permitindo a execução de comandos e a|")
+    print("|transferência de arquivos criptografados.           |")
+    print("+----------------------------------------------------+")
+    print("|      1. Instalar         |     2. Desinstalar      |")
+    print("+--------------------------+-------------------------+") 
+    print("|      3. Comandos         |        4. Sair          |")
+    print("+----------------------------------------------------+")
+    print("|                   - CMEasy -                       |")
+    print("+----------------------------------------------------+")
+# Instalar ssh
+def instalacao_ssh ():
+    try:
+        print("|---------------------------- Instalando o ssh  ------------------------------|")
+        subprocess.run(["sudo", "apt","install", "-y", "openssh-server"], check=True)
+        print("|---------------------- SSH instalado com sucesso --------------------------------|")
+        
+        print("|-------------------------- ativando o ssh ------------------------------|")
+        subprocess.run(["systemctl", "enable", "ssh"], check=True)
+        print("|---------------------- SSH ativado com sucesso --------------------------------|")
+        
+        print("|---------------------------- Iniviando o ssh --------------------------------|")
+        subprocess.run(["sudo", "systemctl", "start", "ssh"], check=True)
+        print("|----------------------- ssh iniciado com sucesso ----------------------------|")
+        print("|---------------------------- ssh instalado com sucesso ------------------------------|")
+    except subprocess.CalledProcessError as e:
+        print(f"Ocorreu um erro ao executar o comando: {e}")
+        #-------------------- limpar a tela                                     
+    enter_clear()
+# Desinstalar ssh
+def desinstalacao_ssh ():
+    try:
+        print("|---------------------------- Desinstalando o ssh  ------------------------------|")
+        subprocess.run(["sudo", "systemctl", "stop", "ssh"], check=True) 
+        subprocess.run(["sudo", "apt", "remove", "--purge", "-y", "openssh-server"], check=True)
+        subprocess.run(["sudo", "apt", "autoremove", "-y"], check=True)
+        subprocess.run(["sudo", "rm", "-rf", "/etc/ssh"], check=True) 
+        subprocess.run(["sudo", "rm", "-rf", "/home/*/.ssh"], check=True)
+        print("|----------------------- ssh desinstalado com sucesso ----------------------------|")
+    except subprocess.CalledProcessError as e:
+        print(f"Ocorreu um erro ao executar o comando: {e}")
+        #-------------------- limpar a tela                                     
+    enter_clear()
+def comandos_ssh ():
+    while True:
+        subprocess.run(["clear"])
+        outro_programas_comandos ()
+        escolha = input ("Escolha uma das opções acima: ")
+        if escolha == "":
+            entrada_invalida1 ()
+            continue
+        else:
+            try:
+                opcao = int(escolha)
+                match opcao:
+                    case 1:
+                        subprocess.run(["sudo", "systemctl", "enable", "ssh"], check=True) 
+                        print ("|---------------- ssh Ativado com sucesso -----------------------|")
+                        enter_clear ()
+                        continue
+                    case 2:
+                        subprocess.run(["sudo", "systemctl", "start", "ssh"], check=True) 
+                        print ("|---------------- ssh iniciado com sucesso -----------------------|")
+                        enter_clear ()
+                        continue
+                    case 3:
+                        subprocess.run(["sudo", "systemctl", "status", "ssh"]) 
+                        enter_clear ()
+                        continue
+                    case 4:
+                        subprocess.run(["sudo", "systemctl", "stop", "ssh"], check=True) 
+                        print ("|---------------- ssh parado com sucesso -----------------------|")
+                        enter_clear ()
+                        continue
+                    case 5:
+                        subprocess.run(["sudo", "systemctl", "restart", "ssh"], check=True) 
+                        print ("|---------------- ssh reiniciado com sucesso -----------------------|")
+                        enter_clear ()
+                        continue
+                    case 6:
+                        subprocess.run(["ssh", "-V"], check=True) 
+                        enter_clear ()
+                        continue
+                    case 7:
+                        break
+                    case _:
+                        entrada_invalida3 ()
+                        continue 
+            except ValueError:
+                entrada_invalida2 ()
+                continue 
+def ssh():
+    while True: 
+        subprocess.run(["clear"])
+        menu_ssh ()
+        escolha = input ("Escolha uma das opções acima: ")
+        if escolha == "":
+            entrada_invalida1 ()
+            continue
+        else:
+            try:
+                opcao = int (escolha)
+                match opcao: 
+                    # Instalar
+                    case 1:
+                        instalacao_ssh ()
+                        continue
+                    # Desinstalar
+                    case 2:
+                        desinstalacao_ssh ()
+                        continue
+                    # Comandos
+                    case 3:
+                        comandos_ssh()
+                        continue
+                    # Voltar
+                    case 4:
+                        break
+                    case _:
+                        entrada_invalida3 ()
+                        continue 
+            except ValueError:
+                entrada_invalida2 ()
+#---> 2. Apache
+def menu_apache ():
+    print("+----------------------------------------------------+")
+    print("|                      APACHE                        |")
+    print("+----------------------------------------------------+")
+    print("| O Apache é um servidor web popular que recebe      |")
+    print("|pedidos de páginas da internet e entrega o conteúdo |")
+    print("|aos navegadores.                                    |")
+    print("+----------------------------------------------------+")
+    print("|      1. Instalar         |     2. Desinstalar      |")
+    print("+--------------------------+-------------------------+") 
+    print("|      3. Comandos         |        4. Sair          |")
+    print("+----------------------------------------------------+")
+    print("|                   - CMEasy -                       |")
+    print("+----------------------------------------------------+")
+# Instalar ssh
+def instalacao_apache ():
+    try:
+        subprocess.run(["sudo", "apt","update"], check=True)
+        print("|---------------------------- Instalando o apache  ------------------------------|")
+        subprocess.run(["sudo", "apt","install", "apache2", "-y"], check=True)
+        print("|---------------------- apache instalado com sucesso --------------------------------|")
+        
+        print("|-------------------------- ativando o apache ------------------------------|")
+        subprocess.run(["sudo", "systemctl", "enable", "apache2"], check=True)
+        print("|---------------------- SSH ativado com sucesso --------------------------------|")
+        
+        print("|---------------------------- Iniviando o apache --------------------------------|")
+        subprocess.run(["sudo", "systemctl" "start", "apache2"], check=True)
+        print("|----------------------- apache iniciado com sucesso ----------------------------|")
+        print("|---------------------------- apache instalado com sucesso ------------------------------|")
+    except subprocess.CalledProcessError as e:
+        print(f"Ocorreu um erro ao executar o comando: {e}")
+        #-------------------- limpar a tela                                     
+    enter_clear()
+# Desinstalar ssh
+def desinstalacao_apache ():
+    try:
+        print("|---------------------------- Desinstalando o ssh  ------------------------------|")
+        subprocess.run(["sudo", "systemctl", "stop", "apache2"], check=True) 
+        subprocess.run(["sudo", "systemctl", "disable", "apache2"], check=True) 
+        subprocess.run(["sudo", "apt", "purge", "apache2", "-y"], check=True)
+        subprocess.run(["sudo", "apt", "remove", "apache2" , "-y"], check=True)
+        subprocess.run(["sudo", "apt", "autoremove", "-y"], check=True)
+        subprocess.run(["sudo", "rm", "-rf", "/etc/apache"], check=True) 
+        subprocess.run(["sudo", "rm", "-rf", "/home/*/.apache"], check=True)
+        print("|----------------------- ssh desinstalado com sucesso ----------------------------|")
+    except subprocess.CalledProcessError as e:
+        print(f"Ocorreu um erro ao executar o comando: {e}")
+        #-------------------- limpar a tela                                     
+    enter_clear()
+# Comandos
+def comandos_apache ():
+    while True:
+        subprocess.run(["clear"])
+        outro_programas_comandos ()
+        escolha = input ("Escolha uma das opções acima: ")
+        if escolha == "":
+            entrada_invalida1 ()
+            continue
+        else:
+            try:
+                opcao = int(escolha)
+                match opcao:
+                    case 1:
+                        subprocess.run(["sudo", "systemctl", "enable", "apache2"], check=True) 
+                        print ("|---------------- apache2 Ativado com sucesso -----------------------|")
+                        enter_clear ()
+                        continue
+                    case 2:
+                        subprocess.run(["sudo", "systemctl", "start", "apache2"], check=True) 
+                        print ("|---------------- apache2 iniciado com sucesso -----------------------|")
+                        enter_clear ()
+                        continue
+                    case 3:
+                        subprocess.run(["sudo", "systemctl", "status", "apache2"]) 
+                        enter_clear ()
+                        continue
+                    case 4:
+                        subprocess.run(["sudo", "systemctl", "stop", "apache2"], check=True) 
+                        print ("|---------------- apache2 parado com sucesso -----------------------|")
+                        enter_clear ()
+                        continue
+                    case 5:
+                        subprocess.run(["sudo", "systemctl", "restart", "apache2"], check=True) 
+                        print ("|---------------- apache2 reiniciado com sucesso -----------------------|")
+                        enter_clear ()
+                        continue
+                    case 6:
+                        subprocess.run(["apache2", "-v"], check=True) 
+                        enter_clear ()
+                        continue
+                    case 7:
+                        break
+                    case _:
+                        entrada_invalida3 ()
+                        continue 
+            except ValueError:
+                entrada_invalida2 ()
+                continue 
+def apache():
+    while True: 
+        subprocess.run(["clear"])
+        menu_apache ()
+        escolha = input ("Escolha uma das opções acima: ")
+        if escolha == "":
+            entrada_invalida1 ()
+            continue
+        else:
+            try:
+                opcao = int (escolha)
+                match opcao: 
+                    # Instalar
+                    case 1:
+                        instalacao_apache()
+                        continue
+                    # Desinstalar
+                    case 2:
+                        desinstalacao_apache ()
+                        continue
+                    # Comandos
+                    case 3:
+                        comandos_apache()
+                        continue
+                    # Voltar
+                    case 4:
+                        break
+                    case _:
+                        entrada_invalida3 ()
+                        continue 
+            except ValueError:
+                entrada_invalida2 ()
+
+
+def ourtros_programas ():
+    while True: 
+        subprocess.run(["clear"])
+        menu_outros_programas ()
+        escolha = input ("Escolha uma das opções acima: ")
+        if escolha == "":
+            entrada_invalida1 ()
+            continue
+        else:
+            try:
+                opcao = int (escolha)
+                match opcao: 
+                    #-------- Programa SSH
+                    case 1:
+                        ssh ()
+                        continue
+                    case 2:
+                        apache ()
+                        continue
+                    case 3:
+                        print ("Indisponivel no momento...")
+                        enter_clear ()
+                        continue
+                    case 4:
+                        break
+                    case _:
+                        entrada_invalida3 ()
+                        continue 
+            except ValueError:
+                entrada_invalida2 ()
+                                                                                     
+######################################################################################################################
+######################################################################################################################
+######################################################################################################################
+
 #------------------------> Ciberseguranca
 #--- Menu programas Ciberseguranca
 def menu_so_ciberseguranca ():
@@ -92,7 +441,15 @@ def menu_so_ciberseguranca ():
     print("+------+-------------------------------------------------+")
     print("|  3.  | Proxy Squid                                     |")
     print("+------+-------------------------------------------------+")
-    print("|  4.  | Voltar                                          |")
+    print("|  4.  | Bwapp                                           |")
+    print("+------+-------------------------------------------------+")
+    print("|  5.  | Suricata                                        |")
+    print("+------+-------------------------------------------------+")
+    print("|  6.  | WireGuard Vpn                                   |")
+    print("+------+-------------------------------------------------+")
+    print("|  7.  | OpenVpn                                         |")
+    print("+------+-------------------------------------------------+")
+    print("|  8.  | Voltar                                          |")
     print("+--------------------------------------------------------+")
     print("|                       @cmeasy                          |")
     print("+--------------------------------------------------------+") 
@@ -1028,7 +1385,7 @@ def squid_menu_principal ():
     print("+----------+------------------------------------------------------------------+")
     print("| Requisi- | SO: Linux (Debian, Ubuntu, CentOS...) ou Windows (em Cygwin).    |")
     print("|tos       | Acesso root / administrador para instalar e configurar o serviço.|") 
-    print("|tos       | Porta de rede livre (padrão: TCP 3128, mas pode ser alterada).   |")
+    print("|          | Porta de rede livre (padrão: TCP 3128, mas pode ser alterada).   |")
     print("|-----------------------------------------------------------------------------|")
     print("| Site ofi-| Link: https://www.squid-cache.org/                               |")
     print("|cial      |                                                                  |")
@@ -1056,7 +1413,7 @@ def squid_instalacao():
             subprocess.run(["sudo", "apt", "install", "squid", "-y"], check=True)
             print("|---------------------------- Proxy squid instaldo com sucesso ---------------------------|")
 
-            subprocess.run("echo '# Liste os sites que pretende bloquear' >> /etc/squid/bad-sites.acl", shell=True)
+            subprocess.run("echo '# Liste os sites que pretende (ex: .facebook.com)' >> /etc/squid/bad-sites.acl", shell=True)
             
             print("|-----------------------> Ativando o servico Squid <------------------------------|")
             subprocess.run(["sudo", "systemctl", "enable", "squid"], check=True)
@@ -1083,6 +1440,7 @@ def squid_desintalar ():
         enter_clear ()
     except subprocess.CalledProcessError as e:
         print(f"Ocorreu um erro ao executar o comando: {e}")
+        enter_clear ()
 #---> 3. Comandos
 def squid_menu_comandos ():
     print("+-----------------------------------------------------------------------------+")
@@ -1316,7 +1674,6 @@ def squid_cof ():
                 # Se a conversão falhar (não for um número), exibe uma mensagem de erro
                 entrada_invalida2 ()
                 continue                
-
 # Programa Squid
 def proxy_squid ():
     while True:
@@ -1358,6 +1715,576 @@ def proxy_squid ():
                 # Se a conversão falhar (não for um número), exibe uma mensagem de erro
                 entrada_invalida2 ()
                 continue                
+#-------------------------------------------------------------
+#-------------------------------------------------------------
+#---> Bwapp <---
+# Menu Principal
+def bwapp_menu_principal ():
+    print("+-----------------------------------------------------------------------------+")
+    print("|                                    BWAPP                                    |")
+    print("+-----------------------------------------------------------------------------+")
+    print("| Oque é ? | O bWAPP é um site com falhas de segurança criadas de propósito   |")
+    print("|          |para aprender segurança informática.                              |")
+    print("+----------+------------------------------------------------------------------+")
+    print("|          | - Permitir praticar testes de segurança em aplicações web.       |")
+    print("|          | - Simular vulnerabilidades reais (como SQL Injection e XSS).     |")
+    print("| Funções  | - Ajudar a aprender hacking ético.                               |")
+    print("|          | - Ambiente seguro para treino e estudo de cibersegurança.        |")
+    print("+----------+------------------------------------------------------------------+")
+    print("| Requisi- | Sistema operativo (Windows, Linux ou macOS).                     |")
+    print("|tos       | Servidor local (ex: XAMPP ou WAMP).                              |") 
+    print("|          | Navegador web (Chrome, Firefox, etc.).                           |")
+    print("|-----------------------------------------------------------------------------|")
+    print("| Site ofi-| Link: https://github.com/ajpalok/bWAPP                           |")
+    print("|cial      |                                                                  |")
+    print("|-----------------------------------------------------------------------------|")
+    print("|  Testes  |                                                                  |")
+    print("|-----------------------------------------------------------------------------+")
+    print("|             1. Instalar               |          2. Desinstalar             |")
+    print("+---------------------------------------+-------------------------------------+")
+    print("|          3. Configuracoes             |            4. Voltar                |")
+    print("+-----------------------------------------------------------------------------+")
+    print("|                                  @cmeasy                                    |")
+    print("+-----------------------------------------------------------------------------+")
+def bwapp_instalacao_config ():
+    print("+-----------------------------------------------------------------------------+")
+    print("|      Cipie e cole estes comandos no arquivo de configuração do php          |")
+    print("+-----------------------------------------------------------------------------+")
+    print('$db_server = "localhost";')
+    print('$db_username = "bwappuser";  // usuário criado no MariaDB')
+    print('$db_password = "bwapp123";   // senha definida para esse usuário')
+    print('$db_name = "bWAPP";')
+    print("+-----------------------------------------------------------------------------+")
+def bwapp_instalacao_conf2 ():
+    print("+-----------------------------------------------------------------------------+")
+    print("|      Cipie e cole estes comandos no arquivo de configuração do php          |")
+    print("+-----------------------------------------------------------------------------+")
+    print("CREATE USER 'bwappuser'@'localhost' IDENTIFIED BY 'bwapp123';")
+    print("GRANT ALL PRIVILEGES ON bWAPP.* TO 'bwappuser'@'localhost';") 
+    print("FLUSH PRIVILEGES;") 
+    print("EXIT;") 
+    print("+-----------------------------------------------------------------------------+")
+def bwapp_instalacao():
+    result = subprocess.run(["dpkg", "-l", "bwapp"], capture_output=True, text=True)        
+    if "bwapp" in result.stdout:
+        print("|---------------------------- Bwapp já está instalado ----------------------------|")
+    else:
+        try:
+            subprocess.run(["sudo", "systemctl", "stop", "unattended-upgrades"], check=True)
+            subprocess.run(["sudo", "systemctl", "disable", "unattended-upgrades"], check=True)
+            print("|---------------------------- Atualizando os pacotes  ------------------------------|")
+            subprocess.run(["sudo", "apt", "update"], check=True)
+            subprocess.run(["sudo", "apt", "install", "wget"], check=True)
+            print("|------------------------ Pacotes atualizados com sucesso --------------------------|")
+            
+            print("|---------------------------- Instalando o dependencias necessarias ----------------------------|")
+            subprocess.run(["sudo", "apt", "install", "apache2", "mariadb-server", "-y"], check=True)
+            subprocess.run(["sudo", "systemctl", "enable", "apache2"], check=True)
+            subprocess.run(["sudo", "systemctl", "start", "apache2"], check=True)
+            subprocess.run(["sudo", "apt", "install", "software-properties-common", "-y"], check=True)
+            subprocess.run(["sudo", "add-apt-repository", "ppa:ondrej/php", "-y"], check=True)
+            subprocess.run(["sudo", "apt", "install", "php7.4", "libapache2-mod-php7.4", "php7.4-mysqli", "php7.4-curl", "php7.4-gd", "php7.4-mbstring", "unzip", "-y"], check=True)
+            subprocess.run(["php", "-v"], check=True)
+            subprocess.run(["sudo", "a2enmod", "php7.4"], check=True)
+            subprocess.run(["sudo", "systemctl", "restart", "apache2"], check=True)
+            print("|---------------------------- Dependencias instaladas com sucesso ---------------------------|")
+            
+            print("|---------------------------- Realizando o download bwapp----------------------------|")
+            subprocess.run(["wget", "https://deac-ams.dl.sourceforge.net/project/bwapp/bWAPP/bWAPPv2.2/bWAPPv2.2.zip"], check=True)
+            print("|---------------------------- Download concluido ---------------------------|")
+             
+            print("|---------------------------- Preparando os arquivo ----------------------------|")
+            subprocess.run(["unzip", "bWAPPv2.2.zip"], check=True)
+            subprocess.run(["sudo", "mv", "bWAPP", "/var/www/html/"], check=True)
+            subprocess.run(["sudo", "chmod", "-R", "777", "/var/www/html/bWAPP"], check=True)
+            print("|---------------------------- Bwapp instaldo com sucesso ---------------------------|")
+            
+            print("|---------------------------- Agora processeda a configuração do php bwapp ---------------------------|")
+            bwapp_instalacao_config ()
+            input ("Precione entrer para continuar... ")
+            subprocess.run(["sudo", "nano", "/var/www/html/bWAPP/admin/settings.php"], check=True)
+            print("|---------------------------- Aceda ao link a baixo para Inicial a instalação pelo bwroser ---------------------------|")
+            print("|User: bee    &     pass: bug ")
+            print("Link: http://localhost/bWAPP/install.php")
+            subprocess.run(["sudo", "systemctl", "enable", "unattended-upgrades"], check=True)
+            subprocess.run(["sudo", "systemctl", "start", "unattended-upgrades"], check=True)
+            
+            bwapp_instalacao_conf2 ()
+            input ("Precione entrer para continuar... ")
+            subprocess.run(["sudo", "mariadb"], check=True)
+            print("|---------------------------- Aceda ao link a baixo para Inicial a instalação pelo bwroser ---------------------------|")
+            print("|User: bee    &     pass: bug ")
+            print("Link: http://localhost/bWAPP/install.php")
+            print("|---------------------------------------------------------------------------------------------------------------------|")
+            subprocess.run(["sudo", "systemctl", "enable", "unattended-upgrades"], check=True)
+            subprocess.run(["sudo", "systemctl", "start", "unattended-upgrades"], check=True)
+
+        except subprocess.CalledProcessError as e:
+            print(f"Ocorreu um erro ao executar o comando: {e}")
+        #-------------------- limpar a tela                                     
+    enter_clear () 
+def bwapp_desinstalacao ():
+    try:
+        print ("|--------------------- Desinstalando o bwapp ------------------------|")
+        subprocess.run(["sudo", "systemctl", "stop", "apache2"], check=True)
+        subprocess.run(["sudo", "systemctl", "stop", "mariadb"], check=True)
+        subprocess.run(["sudo", "rm", "-rf", "/var/www/html/bWAPP"], check=True)
+        subprocess.run(["sudo", "rm", "-f", "/var/log/apache2/bWAPP*"], check=True)
+        subprocess.run(["sudo", "systemctl", "restart", "apache2"], check=True)
+        subprocess.run(["sudo", "systemctl", "restart", "mariadb"], check=True)
+        print("|---------------------------- bwapp desinstalado com sucesso ---------------------------|")
+        print("|---------------------------- Caso seje presiso elimine a base de dados ---------------------------|")
+    except subprocess.CalledProcessError as e:
+        print(f"Ocorreu um erro ao executar o comando: {e}")
+    #-------------------- limpar a tela                                     
+    enter_clear () 
+# Programa bwapp
+def bwapp ():
+    while True:
+        # Limpar a tela antes de iniciar o porgrama
+        subprocess.run(["clear"])
+        # Painel Principal (Menu Principal)
+        bwapp_menu_principal ()
+        escolha = input ("Escolha uma das opções acima: ")
+        # Se o utilizador nao ditar nada 
+        if escolha == "":
+                entrada_invalida1 ()
+                continue
+        # Se o utilizador digitar alguma coisa diferente 
+        else:  
+            try:
+                opcao = int(escolha)
+                match opcao:
+                    case 1:
+                        bwapp_instalacao ()
+                        continue
+                    case 2:
+                        bwapp_desinstalacao ()
+                        continue
+                    case 3:
+                        subprocess.run(["clear"], check=True)
+                        bwapp_instalacao_config ()
+                        input ("Clique enter para continuar...")
+                        subprocess.run(["sudo", "nano", "/var/www/html/bWAPP/admin/settings.php"], check=True)
+                        continue
+                    case 4:
+                        break   
+                    case _:
+                        entrada_invalida3 ()
+                        continue  
+            except ValueError:
+                # Se a conversão falhar (não for um número), exibe uma mensagem de erro
+                entrada_invalida2 ()
+                continue 
+#-------------------------------------------------------------
+#-------------------------------------------------------------
+#---> suricata <---
+# Menu Principal
+def suricata_menu_principal ():
+    print("+-----------------------------------------------------------------------------+")
+    print("|                                 SURICATA                                    |")
+    print("+-----------------------------------------------------------------------------+")
+    print("| Oque é ? | IDS (Sistema de Deteção de Intrusões) que analisa o tráfego de   |")
+    print("|          |rede para encontrar atividades suspeitas ou ataques.              |")
+    print("+----------+------------------------------------------------------------------+")
+    print("|          | - Deteção de intrusões (IDS).                                    |")
+    print("|          | - Prevenção de intrusões (IPS).                                  |")
+    print("| Funções  | - Análise de tráfego.                                            |")
+    print("|          | - Uso de regras.                                                 |")
+    print("|          | - Identificação de protocolos.                                   |")
+    print("+----------+------------------------------------------------------------------+")
+    print("| Requisi- | CPU: pelo menos 2 núcleos.                                       |")
+    print("|tos       | RAM: mínimo 4 GB (8 GB recomendado).                             |") 
+    print("|          | Disco: cerca de 16 GB (ou mais).                                 |")
+    print("|-----------------------------------------------------------------------------|")
+    print("| Site ofi-| Link: https://suricata.io/                                       |")
+    print("|-----------------------------------------------------------------------------|")
+    print("|  Testes  |                                                                  |")
+    print("|-----------------------------------------------------------------------------+")
+    print("|       1. Instalar      |      2. Desinstalar       |      3. Comandos       |")
+    print("+------------------------+---------------------------+------------------------+")
+    print("|    4. Configuracoes    |          5. Logs          |        6. Sair         |")
+    print("+-----------------------------------------------------------------------------+")
+    print("|                                  @cmeasy                                    |")
+    print("+-----------------------------------------------------------------------------+")    
+def suricata_instalacao():
+    result = subprocess.run(["dpkg", "-l", "suricata"], capture_output=True, text=True)        
+    if "suricata" in result.stdout:
+        print("|---------------------------- Surucata já está instalado ----------------------------|")
+    else:
+        try:
+            subprocess.run(["sudo", "systemctl", "stop", "unattended-upgrades"], check=True)
+            subprocess.run(["sudo", "systemctl", "disable", "unattended-upgrades"], check=True)
+            print("|---------------------------- Atualizando os pacotes  ------------------------------|")
+            subprocess.run(["sudo", "apt", "update"], check=True)
+            subprocess.run(["sudo", "apt", "install", "curl"], check=True)
+            print("|------------------------ Pacotes atualizados com sucesso --------------------------|")
+            
+            print("|---------------------------- Instalando o dependencias necessarias ----------------------------|")
+            subprocess.run(["sudo", "apt", "install", "-y", "software-properties-common", "curl"], check=True)          
+            subprocess.run(["sudo", "add-apt-repository", "ppa:oisf/suricata-stable"], check=True)
+            subprocess.run(["sudo", "apt", "update"], check=True)
+            print("|---------------------------- Dependencias instaladas com sucesso ---------------------------|")
+            
+            print("|---------------------------- Instalando o Suricata ---------------------------|")            
+            subprocess.run(["sudo", "apt", "install", "-y", "suricata"], check=True)
+            print("|---------------------------- Suricata Instalado com sucesso ---------------------------|")            
+            
+            print("|---------------------------- Criando arquivo paras regras ---------------------------|") 
+            subprocess.run(["mkdir", "-p", "/etc/suricata/rules/"], check=True)
+            subprocess.run(["curl", "-LO", "https://rules.emergingthreats.net/open/suricata-7.0.3/emerging.rules.tar.gz"], check=True)
+            subprocess.run(["tar", "-xvzf", "emerging.rules.tar.gz"], check=True)                
+            subprocess.run("sudo mv rules/*.rules /etc/suricata/rules/", shell=True, check=True)
+            subprocess.run("sudo chown -R suricata:suricata /etc/suricata/rules/", shell=True, check=True)
+            subprocess.run("sudo chmod 640 /etc/suricata/rules/*.rules", shell=True, check=True)
+            print("|---------------------------- Arquivo criado com sucesso ---------------------------|")  
+            
+            
+            print("|---------------------------- Ativando modo promisco ----------------------------|")
+            subprocess.run(["ip", "a"])
+            int_rede= input("Qaul e a sua interface de rede: ")
+            subprocess.run(["sudo", "ip", "link", "set", int_rede, "promisc", "on"], check=True)
+            print("|---------------------------- Modo promisco ativado ---------------------------|")          
+            
+            
+            subprocess.run(["sudo", "systemctl", "start", "suricata"], check=True)
+            subprocess.run(["sudo", "systemctl", "enable", "suricata"], check=True)
+            
+            print("|---------------------------- Suricata Pronto a ser utilizado ----------------------------|")     
+            print("|---------------------------- Passe agora para configuração ----------------------------|")            
+                        
+            subprocess.run(["sudo", "systemctl", "enable", "unattended-upgrades"], check=True)
+            subprocess.run(["sudo", "systemctl", "start", "unattended-upgrades"], check=True)
+
+        except subprocess.CalledProcessError as e:
+            print(f"Ocorreu um erro ao executar o comando: {e}")
+        #-------------------- limpar a tela                                     
+    enter_clear () 
+#---> 2. Desinstalar
+def suricata_desinstalar ():
+    try:
+        print ("|--------------------- Desinstalando o suricata ------------------------|")
+        subprocess.run(["sudo", "systemctl", "stop", "suricata"], check=True)
+        subprocess.run(["sudo", "systemctl", "disable", "suricata"], check=True)
+        subprocess.run(["sudo", "apt-get", "purge", "suricata"], check=True)
+        subprocess.run(["sudo", "apt-get", "autoremove"], check=True)
+        print ("|--------------------- Deletando todos os arquivos ------------------------|")
+        subprocess.run(["sudo", "rm", "-rf", "/etc/suricata"], check=True)
+        subprocess.run(["sudo", "rm", "-rf", "/etc/suricata"], check=True)
+        subprocess.run(["sudo", "rm", "-rf", "/usr/share/suricata"], check=True)
+        subprocess.run(["sudo", "rm", "-rf", "/var/lib/suricata"], check=True)
+        print("|---------------------------- suricata desinstalado com sucesso ---------------------------|")
+        enter_clear ()
+    except subprocess.CalledProcessError as e:
+        print(f"Ocorreu um erro ao executar o comando: {e}")
+# Comandos 
+def suricata_menu_comandos ():
+    print("+-----------------------------------------------------------------------------+")
+    print("|                                SURICATA                                     |")
+    print("+-----------------------------------------------------------------------------+")
+    print("|                            C O M A N D O S                                  |")
+    print("+-----------------------------------------------------------------------------+")
+    print("| 1. | Ativar                                                                 |")
+    print("+----+------------------------------------------------------------------------+")
+    print("| 2. | Iniciar                                                                |")
+    print("+----+------------------------------------------------------------------------+")
+    print("| 3. | Estado                                                                 |")
+    print("+----+------------------------------------------------------------------------+")
+    print("| 4. | Parar                                                                  |")
+    print("+----+------------------------------------------------------------------------+")
+    print("| 5. | Reiniciar                                                              |")
+    print("+----+------------------------------------------------------------------------+")
+    print("| 6. | Versão                                                                 |")
+    print("+----+------------------------------------------------------------------------+")
+    print("| 7. | Sair                                                                   |")
+    print("+-----------------------------------------------------------------------------+")
+    print("|                                - CMEasy -                                   |")
+    print("+-----------------------------------------------------------------------------+")
+def enable_suricata ():
+    # Ativação do serviço
+    print("|-----------------------> Ativando o servico Suricata <------------------------------|")
+    subprocess.run(["sudo", "systemctl", "enable", "suricata"], check=True)
+    print("|-----------------------> suricata ativado com sucesso <------------------------------|")
+    enter_clear ()
+def start_suricata ():
+    # Iniciação do serviço
+    print("|-----------------------> Iniciando o servico Suricata <------------------------------|")
+    subprocess.run(["sudo", "systemctl", "start", "suricata"], check=True)
+    print("|-----------------------> suricata iniciado com sucesso <-----------------------------|")
+    enter_clear ()
+def status_suricata ():
+    # Estado do servico
+    subprocess.run(["sudo", "systemctl", "status", "suricata.service"])
+    enter_clear ()
+def stop_suricata ():
+    # Ativação do serviço
+    print("|-----------------------> Parando o servico Suricata <------------------------------|")
+    subprocess.run(["sudo", "systemctl", "stop", "suricata"], check=True)
+    print("|-----------------------> suricata foi parado com sucesso <------------------------------|")
+    enter_clear()
+def restart_suricata ():
+    # Reativacao do serviço
+    print("|-----------------------> Reiniciando o servico suricata <------------------------------|")
+    subprocess.run(["sudo", "systemctl", "restart", "suricata"], check=True)
+    print("|-----------------------> suricata reiniciado com sucesso <----------------------------|")
+    enter_clear ()
+def version_suricata (): 
+    subprocess.run(["suricata", "-v"])
+    enter_clear() 
+def comandos_suricata ():
+    while True:
+        subprocess.run(["clear"])
+        suricata_menu_comandos ()
+        escolha = input ("Escolha uma das opções acima: ")
+        if escolha == "":
+            entrada_invalida1 ()
+            continue
+        else:
+            try:
+                opcao = int (escolha)
+                match opcao:
+                    case 1:
+                        enable_suricata ()
+                        continue
+                    case 2:
+                        start_suricata ()
+                        continue
+                    case 3:
+                        status_suricata ()
+                        continue
+                    case 4:
+                        stop_suricata ()
+                        continue
+                    case 5:
+                        restart_suricata ()
+                        continue
+                    case 6:
+                        version_suricata ()
+                        continue
+                    case 7:
+                        break
+                    case _:
+                        entrada_invalida3 ()
+                        continue
+            except ValueError:
+                entrada_invalida2 ()
+                continue
+#---> 4. Configuracoes
+def suricata_menu_config ():   
+    print("+-------------------------------------------------------------------------------------+")
+    print("|                                   SURICATA Config                                   |")
+    print("+-------------------------------------------------------------------------------------+")
+    print("|   1.   | Arquivo de configuração.                                                   |")
+    print("+--------+----------------------------------------------------------------------------+")
+    print("|   2.   | Arquivos das regras.                                                       |")
+    print("+--------+----------------------------------------------------------------------------+")
+    print("|   3.   | Testar as configurações.                                                   |")
+    print("+--------+----------------------------------------------------------------------------+")
+    print("|   4.   | Voltar.                                                                    |")
+    print("+-------------------------------------------------------------------------------------+")
+    print("|                                     - CMEasy -                                      |")
+    print("+-------------------------------------------------------------------------------------+")
+def suricata_menu_config_geral ():   
+    print("+-------------------------------------------------------------------------------------+")
+    print("|                             SURICATA Configuração geral                             |")
+    print("+-------------------------------------------------------------------------------------+")
+    print("| Siga o guia de configuração e tenha atenção a comandos duplicados, espaços, e       |")
+    print("|comandos mal escritos para evitar erros durante a inicialização do serviço.          |")
+    print("+-------------------------------------------------------------------------------------+")
+    print("| 1. | Rede interna monitorada                                                        |")
+    print('|    | HOME_NET: "[192.168.15.0/24]"                                                  |')
+    print("+----+--------------------------------------------------------------------------------+")
+    print("| 2. | Rede externa (todo o resto)                                                    |")
+    print('|    | EXTERNAL_NET: "any"                                                            |')
+    print("+----+--------------------------------------------------------------------------------+")
+    print("| 3. | Caminho das regras                                                             |")
+    print('|    | default-rule-path: /etc/suricata/rules                                         |')
+    print('|    | rule-files:                                                                    |')
+    print('|    | - "*.rules"                                                                    |')
+    print("+----+--------------------------------------------------------------------------------+")
+    print("| 4. | Captura de pacotes em alta velocidade na interface enp0s3.                     |")
+    print('|    | af-packet:                                                                     |')
+    print('|    | - interface: enp0s3                                                            |')
+    print("+----+--------------------------------------------------------------------------------+")
+    print("| 2. | Ativação do modo promiscuo                                                     |")
+    print('|    | disable-promisc: no                                                            |')
+    print("+-------------------------------------------------------------------------------------+")
+    print("|                                     - CMEasy -                                      |")
+    print("+-------------------------------------------------------------------------------------+")
+    input ("Clique enter para aceder o arquivo...")
+def squid_menu_cof2 ():
+    print("+-------------------------------------------------------------------------------------+")
+    print("|                                     SQUID Conf                                      |")
+    print("+-------------------------------------------------------------------------------------+")
+    print("| Altere estas configuracoes deacordo ao seu ambiente, e cuidado com duplicidade de   |")
+    print("|codigo.                                                                              |")
+    print("+-------------------------------------------------------------------------------------+")
+    print("|   1.   | Definir a porta por defeito (Opcional, pos ja vem configurado).            |")
+    print("| Codigo | port http_port 3128                                                        |")
+    print("+--------+----------------------------------------------------------------------------+")
+    print("|   2.   | Define a rede local permitida (toda a subnet 192.168.1.0/24).              |")
+    print("| Codigo | acl localnet src 192.168.1.0/24                                            |")
+    print("+--------+----------------------------------------------------------------------------+")
+    print("|   a)   | Bloquer o acesso de um ip ao exterior.                                     |")
+    print("+--------+----------------------------------------------------------------------------+")
+    print("| Acl: acl ip_bloqueado src 192.168.1.100 | Info: Define o IP que queremos bloquear.  |")
+    print("| Regra: http_access deny ip_bloqueado    | Info: Nega acesso ao IP bloqueado.        |")
+    print("+--------+----------------------------------------------------------------------------+")
+    print("|   b)   | Definir lista de sites para serem bloqueados.                              |")
+    print("+--------+----------------------------------------------------------------------------+")
+    print("| Acl: acl bad_url dstdomain “/etc/squid/bad-sites.acl”                               |")
+    print("| Regra: http_access deny bad_url                                                     |")
+    print("+-------------------------------------------------------------------------------------+")
+    print("|   3.   | permite o acesso ao proxy para todos os IPs que estão na ACL localnet.     |")
+    print("| Codigo | http_access allow localnet                                                 |")
+    print("+-------------------------------------------------------------------------------------+")
+    print("|   4.   | Nega tudo o resto (segurança — regra final).                               |")
+    print("| Codigo | http_access deny all                                                       |")
+    print("+-------------------------------------------------------------------------------------+")
+    print("| No final reinicie o servico squid e configure o browser do host com o ip do         |")
+    print("|servidor e e prta correspondente.                                                    |")
+    print("+-------------------------------------------------------------------------------------+")
+    print("|                          Precione [ E N T E R ] para continuar                      |")
+    print("+-------------------------------------------------------------------------------------+")
+    print("|                                       - CMEasy -                                    |")
+    print("+-------------------------------------------------------------------------------------+")
+def squid_menu_cof3 ():
+    print("+-------------------------------------------------------------------------------------+")
+    print("|                                SQUID - Conf - Sintaxe                               |")
+    print("+-------------------------------------------------------------------------------------+")
+    print("|1. Definir ACLs (Critérios usados para decidir quem ou o quê pode aceder ao proxy.). |")
+    print("|2. Regras específicas.                                                               |")
+    print("|3. Regra final (catch-all 'seguranca').                                              |")
+    print("+-------------------------------------------------------------------------------------+")
+    print("|                          Precione [ E N T E R ] para continuar                      |")
+    print("+-------------------------------------------------------------------------------------+")
+    print("|                                       - CMEasy -                                    |")
+    print("+-------------------------------------------------------------------------------------+")
+def squid_logs ():    
+    while True:
+        subprocess.run(["clear"])
+        print("+-------------------------------------------------------------------------------------+")
+        print("|                                     SQUID Logs                                      |")
+        print("+-------------------------------------------------------------------------------------+")
+        print("|   1.   | Monitorizar o trafego proxy.                                               |")
+        print("+--------+----------------------------------------------------------------------------+")
+        print("|   2.   | Monitorizar a cache.                                                       |")
+        print("+--------+----------------------------------------------------------------------------+")
+        print("|   3.   | Sair.                                                                      |")
+        print("+-------------------------------------------------------------------------------------+")
+        print("|                                       - CMEasy -                                    |")
+        print("+-------------------------------------------------------------------------------------+")
+        escolha = input ("Escolha uma das opções acima: ")
+        # Se o utilizador nao ditar nada 
+        if escolha == "":
+                entrada_invalida1 ()
+                continue
+        # Se o utilizador digitar alguma coisa diferente 
+        else:  
+            try:
+                opcao = int(escolha)
+                match opcao:
+                    case 1:
+                        subprocess.run(["clear"])
+                        print ("|------------- Registro de acesso ao exterior ----------------|")
+                        subprocess.run(["sudo", "tail", "-f", "/var/log/squid/access.log"])
+                        continue
+                    case 2:
+                        subprocess.run(["clear"])
+                        print ("|------------- Registro de acesso ----------------|")
+                        subprocess.run(["sudo", "tail", "-f", "/var/log/squid/cache.log"])
+                        continue
+                    case 3:
+                        break   
+                    case _:
+                        entrada_invalida3 ()
+                        continue  
+            except ValueError:
+                # Se a conversão falhar (não for um número), exibe uma mensagem de erro
+                entrada_invalida2 ()
+                continue              
+def suricata_config ():
+    while True:
+        # Limpar a tela antes de iniciar o porgrama
+        subprocess.run(["clear"])
+        # Painel Principal (Menu Principal)
+        suricata_menu_config ()
+        escolha = input ("Escolha uma das opções acima: ")
+        # Se o utilizador nao ditar nada 
+        if escolha == "":
+                entrada_invalida1 ()
+                continue
+        # Se o utilizador digitar alguma coisa diferente 
+        else:  
+            try:
+                opcao = int(escolha)
+                match opcao:
+                    case 1:
+                        subprocess.run(["clear"])
+                        suricata_menu_config_geral ()
+                        subprocess.run(["sudo", "nano", "/etc/suricata/suricata.yaml"])
+                        continue
+                    case 2:
+                        subprocess.run(["ls", "/etc/suricata/rules/"])
+                        input ("Clique enter para continuar... ")
+                        continue
+                    case 3:
+                        subprocess.run(["sudo", "suricata", "-T", "-c", "/etc/suricata/suricata.yaml"])
+                        input ("Clique enter para continuar... ")
+                        continue
+                    case 4:
+                        break   
+                    case _:
+                        entrada_invalida3 ()
+                        continue  
+            except ValueError:
+                # Se a conversão falhar (não for um número), exibe uma mensagem de erro
+                entrada_invalida2 ()
+                continue                
+# Programa suricata
+def suricata ():
+    while True:
+        # Limpar a tela antes de iniciar o porgrama
+        subprocess.run(["clear"])
+        # Painel Principal (Menu Principal)
+        suricata_menu_principal ()
+        escolha = input ("Escolha uma das opções acima: ")
+        # Se o utilizador nao ditar nada 
+        if escolha == "":
+                entrada_invalida1 ()
+                continue
+        # Se o utilizador digitar alguma coisa diferente 
+        else:  
+            try:
+                opcao = int(escolha)
+                match opcao:
+                    case 1:
+                        suricata_instalacao ()
+                        continue
+                    case 2:
+                        suricata_desinstalar ()
+                        continue
+                    case 3:
+                        comandos_suricata ()
+                        continue
+                    case 4:
+                        suricata_config ()
+                        continue
+                    case 5:
+                        subprocess.run(["clear"])
+                        print ("|------------- Registro de acesso ao exterior ----------------|")
+                        subprocess.run(["sudo", "tail", "-f", "/var/log/suricata/eve.json"])
+                        continue
+                    case 6:
+                        break   
+                    case _:
+                        entrada_invalida3 ()
+                        continue  
+            except ValueError:
+                # Se a conversão falhar (não for um número), exibe uma mensagem de erro
+                entrada_invalida2 ()
+                continue 
+#-------------------------------------------------------------
 
 
 def ciberseguranca ():
@@ -1384,8 +2311,22 @@ def ciberseguranca ():
                     case 3:
                         proxy_squid ()
                         continue
-                    # Voltar ao menu anterior
                     case 4:
+                        bwapp ()
+                        continue
+                    case 5 :
+                        suricata ()
+                        continue
+                    case 6:
+                        print ("Indisponivel no momento...")
+                        enter_clear ()
+                        continue
+                    case 7:
+                        print ("Indisponivel no momento...")
+                        enter_clear ()
+                        continue
+                    # Voltar ao menu anterior
+                    case 8:
                         break
                     case _:
                         entrada_invalida3 ()
@@ -1397,156 +2338,328 @@ def ciberseguranca ():
 
 
 
+######################################################################################################################
+######################################################################################################################
+######################################################################################################################
 
-#------------------------> Programacao
-
-#------------------------> Outros programas
-# Menu Principal
-def menu_outros_programas ():
-    print("+--------------------------------------------------------------+")
-    print("|                      OUTROS PROGRAMAS                        |")
-    print("+--------------------------------------------------------------+")
-    print("|  1.  | SSH (Secure Shell)                                    |")
-    print("+------+-------------------------------------------------------+")
-    #print("| 2. | Iniciar                                                 |")
-    #print("+----+---------------------------------------------------------+")
-    #print("| 3. | Estado                                                  |")
-    #print("+----+---------------------------------------------------------+")
-    #print("| 4. | Parar                                                   |")
-    #print("+----+---------------------------------------------------------+")
-    #print("| 5. | Reiniciar                                               |")
-    #print("+----+---------------------------------------------------------+")
-    #print("| 6. | Versão                                                  |")
-    #print("+----+---------------------------------------------------------+")
-    #print("| 7. | Ver IP'S Banidos                                        |")
-    #print("+----+---------------------------------------------------------+")
-    #print("| 8. | Liberar IP                                              |")
-    #print("+----+---------------------------------------------------------+")
-    #print("| 8. | Banir Host                                              |")
-    #print("+----+---------------------------------------------------------+")
-    print("|  2.  | Sair                                                  |")
-    print("+--------------------------------------------------------------+")
-    print("|                        - CMEasy -                            |")
-    print("+--------------------------------------------------------------+")
-#---> ssh
-def menu_ssh ():
-    print("+----------------------------------------------------+")
-    print("|                      S S H                         |")
-    print("+----------------------------------------------------+")
-    print("| SSH (Secure Shell) é um protocolo de rede utilizado|")
-    print("|para acessar de forma segura e remota computadores  |")
-    print("|ou servidores, permitindo a execução de comandos e a|")
-    print("|transferência de arquivos criptografados.           |")
-    print("+----------------------------------------------------+")
-    print("|      1. Instalar         |     2. Desinstalar      |")
-    print("+--------------------------+-------------------------+") 
-    print("|      3. Comandos         |        4. Sair          |")
-    print("+----------------------------------------------------+")
-    print("|                   - CMEasy -                       |")
-    print("+----------------------------------------------------+")
-# Instalar ssh
-def instalacao_ssh ():
+#----------------> 2. Executar Comandos <-----------------
+# Menus
+def comandos_menu ():
+    print("+-----------------------------------------------------------------------------+")
+    print("|                            S I S T E M A S                                  |")
+    print("+-----------------------------------------------------------------------------+")
+    print("| 1. | Linux                                                                  |")
+    print("+----+------------------------------------------------------------------------+")
+    print("| 2. | Windows                                                                |")
+    print("+----+------------------------------------------------------------------------+")
+    print("| 3. | Voltar                                                                 |")
+    print("+-----------------------------------------------------------------------------+")
+    print("|                                - CMEasy -                                   |")
+    print("+-----------------------------------------------------------------------------+")
+def menu_permisions_type ():
+    print("+----------------------------------------+")
+    print("|            O P C O E S                 |")
+    print("+----------------------------------------+")
+    print("|1. Permissão de leitura (read)          |")
+    print("|2. Permissão de escrita (write).        |")
+    print("|3. Permissão de execução (execute).     |")
+    print("|4. Remover permissão de leitura.        |")
+    print("|5. Remover permissão de escrita.        |")
+    print("|6. Remover permissão de execução.       |")
+    print("|7. Sair.                                |")
+    print("+----------------------------------------+")
+def comandos_linux_menu ():
+    print("+-----------------------------------------------------------------------------+")
+    print("|                            C O M A N D O S                                  |")
+    print("+-----------------------------------------------------------------------------+")
+    print("|  1.  | Ajustar relógio do sistema.                                          |")
+    print("+------+----------------------------------------------------------------------+")
+    print("|  2.  | Alterar a senha de um usuário.                                       |")
+    print("+------+----------------------------------------------------------------------+")
+    print("|  3.  | Atualizar todos os programas instalados.                             |")
+    print("+------+----------------------------------------------------------------------+")
+    print("|  4.  | Informações de rede e interfaces.                                    |")
+    print("+------+----------------------------------------------------------------------+")
+    print("|  5.  | Informação do sistema.                                               |")
+    print("+------+----------------------------------------------------------------------+")
+    print("|  6.  | Localizar arquivos no sistema.                                       |")
+    print("+------+----------------------------------------------------------------------+")
+    print("|  7.  | Extrair arquivos (.tar).                                             |")
+    print("+------+----------------------------------------------------------------------+")
+    print("|  8.  | Extrair arquivos (.tar.gz).                                          |")
+    print("+------+----------------------------------------------------------------------+")
+    print("|  9.  | Listar arquivos e pastas de um diretório.                            |")
+    print("+------+----------------------------------------------------------------------+")
+    print("|  10. | Listar arquivos e pastas de um diretório especifico.                 |")
+    print("+------+----------------------------------------------------------------------+")
+    print("|  11. | Alterar permissões de arquivos e pastas.                             |")
+    print("+------+----------------------------------------------------------------------+")
+    print("|  12. | Matar um processo.                                                   |")
+    print("+------+----------------------------------------------------------------------+")
+    print("|  13. | Visualizar as portas abertas no sistema.                             |")
+    print("+------+----------------------------------------------------------------------+")
+    print("|  20. | Voltar.                                                              |")
+    print("+-----------------------------------------------------------------------------+")
+    print("|                                - CMEasy -                                   |")
+    print("+-----------------------------------------------------------------------------+")
+################# COMANDOS LINUX ################################
+# Informação do sistema
+def comando_infoSystem ():
+    subprocess.run(["hostnamectl"])
+    enter_clear ()
+# Nome de usuario
+def comando_username ():
+    user = subprocess.run(["whoami"], capture_output=True, text=True)
+    print(f"Nome do utilizador: {user.stdout}")
+    enter_clear ()
+# Alterar o nome de usuario
+def comando_alterar_username ():
+    antigo_nome = input("Escreva o nome do atual: ")
+    novo_nome = input("Escreva o novo nome: ")
+    user = subprocess.run( ["sudo", "usermod", "-l", novo_nome, "-d", f"/home/{novo_nome}", "-m", antigo_nome], capture_output=True, text=True )
+    if user.returncode == 0:
+        print(f"Utilizador {antigo_nome} renomeado para {novo_nome} com sucesso!")
+    else:
+        print("Ocorreu um erro:")
+        print(user.stderr)
+    enter_clear ()
+# Matar um processo
+def comando_killProcess ():
+    n_processo = input ("Indique o número do processo: ")
+    subprocess.run(["kill", "-9", n_processo])
+    print(f"O processo nº {n_processo} foi encerrado com sucesso")
+    enter_clear ()
+# Ajuste de relogio
+def comando_time_so ():
     try:
-        print("|---------------------------- Instalando o ssh  ------------------------------|")
-        subprocess.run(["sudo", "apt","install", "-y", "openssh-server"], check=True)
-        print("|---------------------- SSH instalado com sucesso --------------------------------|")
-        
-        print("|-------------------------- ativando o ssh ------------------------------|")
-        subprocess.run(["systemctl", "enable", "ssh"], check=True)
-        print("|---------------------- SSH ativado com sucesso --------------------------------|")
-        
-        print("|---------------------------- Iniviando o ssh --------------------------------|")
-        subprocess.run(["sudo", "apt", "install", "-y", "fail2ban"], check=True)
-        print("|----------------------- ssh iniciado com sucesso ----------------------------|")
-        print("|---------------------------- ssh instalado com sucesso ------------------------------|")
+        print("|------------Alterando do relogio do sistema--------------|")
+        subprocess.run(["sudo", "apt", "update"], check=True)
+        subprocess.run(["sudo", "dpkg-reconfigure", "tzdata"], check=True)
+        subprocess.run(["sudo", "apt", "install", "chrony", "-y"], check=True)
+        print("|------------Comando executado com sucesso--------------|")
     except subprocess.CalledProcessError as e:
         print(f"Ocorreu um erro ao executar o comando: {e}")
-        #-------------------- limpar a tela                                     
     enter_clear()
-# Desinstalar ssh
-def desinstalacao_ssh ():
-    try:
-        print("|---------------------------- Desinstalando o ssh  ------------------------------|")
-        subprocess.run(["sudo", "systemctl", "stop", "ssh"], check=True) 
-        subprocess.run(["sudo", "apt", "remove", "--purge", "-y", "openssh-server"], check=True)
-        subprocess.run(["sudo", "apt", "autoremove", "-y"], check=True)
-        subprocess.run(["sudo", "rm", "-rf", "/etc/ssh"], check=True) 
-        subprocess.run(["sudo", "rm", "-rf", "/home/*/.ssh"], check=True)
-        print("|----------------------- ssh desinstalado com sucesso ----------------------------|")
-    except subprocess.CalledProcessError as e:
-        print(f"Ocorreu um erro ao executar o comando: {e}")
-        #-------------------- limpar a tela                                     
+# Alterar senha de usuarios
+def comando_passwd_users ():
+    userName= input("Qual e o nome do usuario: ")
+    subprocess.run(["passwd", userName])
+    print("|------------Comando executado com sucesso--------------|")
     enter_clear()
-# Comandos
-def menu_ssh_comandos ():
-    print("+----------------------------------------------------+")
-    print("|                    COMANDOS SSH                    |")
-    print("+----------------------------------------------------+")
-    print("| 1. Ativar                                          |")
-    print("| 2. Iniciar                                         |")
-    print("| 3. Estado                                          |")
-    print("| 4. Parar                                           |")
-    print("| 5. Reiniciar                                       |")
-    print("| 6. Versao                                          |")
-    print("| 7. Sair                                            |")
-    print("+----------------------------------------------------+") 
-def comandos_ssh ():
+# Atualizar todos programas 
+def comando_upgrade_prog ():
+    subprocess.run(["sudo", "apt", "upgrade", "-y"], check=True)
+    print("|------------Comando executado com sucesso--------------|")
+    enter_clear()
+# Interface de rede
+def comando_inf_rede ():
+    subprocess.run(["ip", "a"], check=True)
+    print("|------------Comando executado com sucesso--------------|")
+    enter_clear ()
+# Localizar Arquivo
+def comando_local_arq ():
+    arquivo_pasta= input ("Escreva o nome do arquivo: ")
+    subprocess.run(["locate", arquivo_pasta], check=True)
+    print("|------------Comando executado com sucesso--------------|")
+    enter_clear()
+# Extrair arquivos .tar
+def comando_extrat_tar():
+    arquivo_pasta= input ("Indique o camindo do arquivo: ")
+    subprocess.run(["tar", "-xvf", arquivo_pasta], check=True)
+    print("|------------Comando executado com sucesso--------------|")
+    enter_clear()
+# Extrair arquivos .tar.gz
+def comando_extrat_targz():
+    arquivo_pasta= input ("Indique o camindo do arquivo: ")
+    subprocess.run(["tar", "-xzvf", arquivo_pasta], check=True)
+    print("|------------Comando executado com sucesso--------------|")
+    enter_clear()
+# Listar arquivos e pastas
+def comando_list_dir1():
+    subprocess.run(["ls", "-lh"], check=True)
+    print("|------------Comando executado com sucesso--------------|")
+    enter_clear()
+# Listar arquivos e pastas especifico
+def comando_list_dir2():
+    arquivo_pasta= input ("Indique o camindo da Diretoria: ")
+    subprocess.run(["ls", "-lh", arquivo_pasta], check=True)
+    print("|------------Comando executado com sucesso--------------|")
+    enter_clear()
+# Manipuar permioes de arquivos e pastas
+def comando_permissao ():
     while True:
         subprocess.run(["clear"])
-        menu_ssh_comandos ()
+        menu_permisions_type ()
         escolha = input ("Escolha uma das opções acima: ")
         if escolha == "":
             entrada_invalida1 ()
             continue
         else:
             try:
-                opcao = int(escolha)
-                match opcao:
+                opcao = int (escolha)
+                match opcao: 
                     case 1:
-                        subprocess.run(["sudo", "systemctl", "enable", "ssh"], check=True) 
-                        print ("|---------------- ssh Ativado com sucesso -----------------------|")
+                        arquivo_pasta= input ("Indique o camindo da Direoria ou do arquivo: ")
+                        subprocess.run(["chmod", "+r", arquivo_pasta])
+                        print("|------------Comando executado com sucesso--------------|")
                         enter_clear ()
-                        continue
                     case 2:
-                        subprocess.run(["sudo", "systemctl", "start", "ssh"], check=True) 
-                        print ("|---------------- ssh iniciado com sucesso -----------------------|")
+                        arquivo_pasta= input ("Indique o camindo da Direoria ou do arquivo: ")
+                        subprocess.run(["chmod", "+w", arquivo_pasta])
+                        print("|------------Comando executado com sucesso--------------|")
                         enter_clear ()
-                        continue
                     case 3:
-                        subprocess.run(["sudo", "systemctl", "status", "ssh"]) 
+                        arquivo_pasta= input ("Indique o camindo da Direoria ou do arquivo: ")
+                        subprocess.run(["chmod", "+x", arquivo_pasta])
+                        print("|------------Comando executado com sucesso--------------|")
                         enter_clear ()
-                        continue
                     case 4:
-                        subprocess.run(["sudo", "systemctl", "stop", "ssh"], check=True) 
-                        print ("|---------------- ssh parado com sucesso -----------------------|")
+                        arquivo_pasta= input ("Indique o camindo da Direoria ou do arquivo: ")
+                        subprocess.run(["chmod", "-x", arquivo_pasta])
+                        print("|------------Comando executado com sucesso--------------|")
                         enter_clear ()
-                        continue
                     case 5:
-                        subprocess.run(["sudo", "systemctl", "restart", "ssh"], check=True) 
-                        print ("|---------------- ssh reiniciado com sucesso -----------------------|")
+                        arquivo_pasta= input ("Indique o camindo da Direoria ou do arquivo: ")
+                        subprocess.run(["chmod", "-r", arquivo_pasta])
+                        print("|------------Comando executado com sucesso--------------|")
                         enter_clear ()
-                        continue
                     case 6:
-                        subprocess.run(["ssh", "-V"], check=True) 
+                        arquivo_pasta= input ("Indique o camindo da Direoria ou do arquivo: ")
+                        subprocess.run(["chmod", "-w", arquivo_pasta])
+                        print("|------------Comando executado com sucesso--------------|")
                         enter_clear ()
-                        continue
                     case 7:
-                        enter_clear ()
                         break
                     case _:
                         entrada_invalida3 ()
-                        continue 
+                        continue
             except ValueError:
                 entrada_invalida2 ()
-                continue 
-###########################################################################
+                continue
+# Visualizar portas abertas
+def comando_netstat ():
+    subprocess.run(["sudo", "apt", "install", "net-tools"], check=True)
+    subprocess.run(["netstat", "-vnlp"], check=True)
+    print("|------------Comando executado com sucesso--------------|")
+    enter_clear()
+###################################################################
+def distro_debian ():
+    while True:
+        subprocess.run(["clear"])
+        comandos_linux_menu ()
+        escolha = input ("Escolha uma das opções acima: ")
+        if escolha == "":
+            entrada_invalida1 ()
+            continue
+        else:
+            try:
+                opcao = int (escolha)
+                match opcao: 
+                    case 1:
+                        comando_time_so ()
+                        continue
+                    case 2:
+                        comando_passwd_users ()
+                        continue
+                    case 3:
+                        comando_upgrade_prog ()
+                        continue
+                    case 4:
+                        comando_inf_rede ()
+                        continue
+                    case 5:
+                        comando_infoSystem ()
+                        continue
+                    case 6:
+                        comando_local_arq ()
+                        continue
+                    case 7:
+                        comando_extrat_tar ()
+                        continue
+                    case 8:
+                        comando_extrat_targz ()
+                        continue
+                    case 9:
+                        comando_list_dir1 ()
+                        continue
+                    case 10:
+                        comando_list_dir2 ()
+                        continue
+                    case 11:
+                        comando_permissao ()
+                        continue
+                    case 12:
+                        comando_killProcess ()
+                        continue
+                    case 13:
+                        comando_netstat ()
+                        continue
+                    case 20:
+                        break
+                    case _:
+                        entrada_invalida3 ()
+                        continue
+            except ValueError:
+                entrada_invalida2 ()
+                continue
+def comandos_linux_distro ():
+    while True:
+        subprocess.run(["clear"])
+        menu_instalar_programas ()
+        escolha = input ("Escolha uma das opções acima: ")
+        if escolha == "":
+            entrada_invalida1 ()
+            continue
+        else:
+            try:
+                opcao = int (escolha)
+                match opcao: 
+                    case 1:
+                        distro_debian ()
+                        continue
+                    case 3:
+                        break
+                    case _:
+                        entrada_invalida3 ()
+                        continue
+            except ValueError:
+                entrada_invalida2 ()
+                continue
 
-###########################################################################
-#----------------> 2. Executar Comandos <-----------------
+def comandos ():
+    while True:
+        subprocess.run(["clear"])
+        comandos_menu ()
+        escolha = input ("Escolha uma das opções acima: ")
+        if escolha == "":
+            entrada_invalida1 ()
+            continue
+        else:
+            try:
+                opcao = int (escolha)
+                match opcao: 
+                    case 1:
+                        comandos_linux_distro ()
+                        continue
+                    case 2:
+                        print ("Indisponivel no momento...")
+                        enter_clear ()
+                        continue
+                    # Voltar ao menu anterior
+                    case 3:
+                        break
+                    case _:
+                        entrada_invalida3 ()
+                        continue
+            except ValueError:
+                entrada_invalida2 ()
+                continue
 
-###########################################################################
 
-###########################################################################
+######################################################################################################################
+######################################################################################################################
+######################################################################################################################
+
 #----------------> 3. Informacao <-----------------
 # Menu Informacao
 def menu_inform ():
@@ -1572,9 +2685,11 @@ def menu_inform ():
     print("+--------------------------------------------------------+")
     print("|                     @cmeasy                            |")
     print("+--------------------------------------------------------+") 
-###########################################################################
 
-###########################################################################
+######################################################################################################################
+######################################################################################################################
+######################################################################################################################
+
 # Programa CMEasy.
 def main ():
     while True:
@@ -1630,59 +2745,8 @@ def main ():
                                                                 continue
                                                             #-------- Outros Programas
                                                             case 3:
-                                                                while True: 
-                                                                    subprocess.run(["clear"])
-                                                                    menu_outros_programas ()
-                                                                    escolha = input ("Escolha uma das opções acima: ")
-                                                                    if escolha == "":
-                                                                        entrada_invalida1 ()
-                                                                        continue
-                                                                    else:
-                                                                        try:
-                                                                            opcao = int (escolha)
-                                                                            match opcao: 
-                                                                                #-------- Programa SSH
-                                                                                case 1:
-                                                                                    while True: 
-                                                                                        subprocess.run(["clear"])
-                                                                                        menu_ssh ()
-                                                                                        escolha = input ("Escolha uma das opções acima: ")
-                                                                                        if escolha == "":
-                                                                                            entrada_invalida1 ()
-                                                                                            continue
-                                                                                        else:
-                                                                                            try:
-                                                                                                opcao = int (escolha)
-                                                                                                match opcao: 
-                                                                                                    # Instalar
-                                                                                                    case 1:
-                                                                                                        instalacao_ssh ()
-                                                                                                        continue
-                                                                                                    # Desinstalar
-                                                                                                    case 2:
-                                                                                                        desinstalacao_ssh ()
-                                                                                                        continue
-                                                                                                    # Comandos
-                                                                                                    case 3:
-                                                                                                        comandos_ssh()
-                                                                                                        continue
-                                                                                                    # Voltar
-                                                                                                    case 4:
-                                                                                                        break
-                                                                                                    case _:
-                                                                                                        entrada_invalida3 ()
-                                                                                                        continue 
-                                                                                            except ValueError:
-                                                                                                entrada_invalida2 ()
-                                                                                                continue 
-                                                                                case 2:
-                                                                                    break
-                                                                                case _:
-                                                                                    entrada_invalida3 ()
-                                                                                    continue 
-                                                                        except ValueError:
-                                                                            entrada_invalida2 ()
-                                                                            continue                                                               
+                                                                ourtros_programas ()
+                                                                continue                                                               
                                                             # Voltar ao menu anterior
                                                             case 4:
                                                                 break
@@ -1703,8 +2767,7 @@ def main ():
                                     continue
                     # Executar comandos
                     case 2:
-                        print ("Indisponivel no momento...")
-                        enter_clear ()
+                        comandos ()
                         continue
                     # Informacao do sistema operacional
                     case 3:
